@@ -1,9 +1,9 @@
 <template>
-  <HomeView />
+  <MainNavigation />
 </template>
 
 <script setup>
-import HomeView from "@/views/HomeView.vue";
+import MainNavigation from "@/components/navigation/MainNavigation.vue";
 </script>
 
 <style>
