@@ -61,8 +61,17 @@ export default {
 
       this.$router.go(this.$router.currentRoute);
     },
-    removeQuestion(question) {
+    async removeQuestion(question) {
       this.questions = this.questions.filter((q) => q.id !== question.id);
+
+      const res = await fetch(`api/exams/question?deckId=${this.deckId}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(this.questions),
+      });
+      await res.json();
     },
   },
   async created() {
