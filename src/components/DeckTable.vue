@@ -9,12 +9,12 @@
     </thead>
     <tbody>
       <tr v-for="question in questions" :key="question.id">
-        <td>
+        <td style="padding: 10px">
           <router-link
             style="text-decoration: none; color: inherit"
             :to="`/deck/${this.$route.params.id}/question/` + question.id"
           >
-            {{ question.text }}
+            <p v-html="question.text" />
           </router-link>
         </td>
         <td>{{ question.answer }}</td>
@@ -23,7 +23,6 @@
             @remove="$emit('remove', question)"
             :question="question"
           />
-          <v-btn variant="text">Edytuj</v-btn>
         </td>
       </tr>
     </tbody>

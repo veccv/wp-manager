@@ -13,7 +13,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-btn> Generuj test </v-btn>
+    <v-btn @click="generateTest"> Generuj test </v-btn>
   </v-card-actions>
   <DeckTable :questions="questions" @remove="removeQuestion" />
 </template>
@@ -21,6 +21,8 @@
 <script>
 import DeckTable from "@/components/DeckTable.vue";
 import NewQuestionForm from "@/components/NewQuestionForm.vue";
+import { jsPDF } from "jspdf";
+import font from "../assets/FreeSerif-normal";
 
 export default {
   name: "DeckView",
@@ -72,6 +74,16 @@ export default {
         body: JSON.stringify(this.questions),
       });
       await res.json();
+    },
+    generateTest() {
+      const doc = new jsPDF();
+
+      doc.addFileToVFS("Amiri-Regular.ttf", font);
+      doc.addFont("Amiri-Regular.ttf", "Amiri", "normal");
+      doc.setFont("Amiri");
+
+      doc.text("Hello world! ąąąąćććdddd", 10, 10);
+      doc.save("a4.pdf");
     },
   },
   async created() {
