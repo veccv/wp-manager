@@ -10,12 +10,11 @@
             subtitle="Logged in"
           ></v-list-item>
         </template>
-
         <v-divider></v-divider>
 
         <NavigationItemList :items="items" />
       </v-navigation-drawer>
-      <v-main style="height: 250px">
+      <v-main>
         <router-view />
       </v-main>
     </v-layout>
@@ -34,13 +33,11 @@ export default {
         {
           id: "1",
           title: "Strona główna",
-          icon: "",
           path: "/",
         },
         {
           id: "2",
           title: "Informacje",
-          icon: "",
           path: "/about",
         },
       ],
