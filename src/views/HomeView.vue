@@ -2,6 +2,7 @@
   <ChooseTable
     :columns="['Nazwa decku', 'ilość pytań']"
     :elements="getDecksToTable()"
+    @remove="removeDeck"
   />
 </template>
 
@@ -33,8 +34,12 @@ export default {
       });
       return preparedDecks;
     },
-    removeQuestion(question) {
-      console.log(question);
+    async removeDeck(deck) {
+      this.exams = this.exams.filter((exam) => exam.id !== deck.id);
+
+      await fetch(`api/exams?id=${deck.id}`, {
+        method: "DELETE",
+      });
     },
   },
   async created() {
