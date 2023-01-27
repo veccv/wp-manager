@@ -13,7 +13,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-btn @click="generateTest"> Generuj test </v-btn>
+    <GenerateExam :questions="questions" />
   </v-card-actions>
   <DeckTable :questions="questions" @remove="removeQuestion" />
 </template>
@@ -23,10 +23,11 @@ import DeckTable from "@/components/DeckTable.vue";
 import NewQuestionForm from "@/components/NewQuestionForm.vue";
 import { jsPDF } from "jspdf";
 import font from "../assets/FreeSerif-normal";
+import GenerateExam from "@/components/GenerateExam.vue";
 
 export default {
   name: "DeckView",
-  components: { NewQuestionForm, DeckTable },
+  components: { GenerateExam, NewQuestionForm, DeckTable },
   data() {
     return {
       deckId: this.$route.params.id,
@@ -81,9 +82,39 @@ export default {
       doc.addFileToVFS("Amiri-Regular.ttf", font);
       doc.addFont("Amiri-Regular.ttf", "Amiri", "normal");
       doc.setFont("Amiri");
+      doc.setFontSize(10);
 
-      doc.text("Hello world! ąąąąćććdddd", 10, 10);
-      doc.save("a4.pdf");
+      let questionsToRandom = [...this.questions];
+      let randomizedQuestions = [];
+      while (questionsToRandom.length !== 0) {
+        if (randomizedQuestions.length === 5) {
+          break;
+        }
+        let randomIndex = Math.floor(Math.random() * questionsToRandom.length);
+        let randomItem = questionsToRandom[randomIndex];
+        randomizedQuestions.push(randomItem);
+        questionsToRandom.splice(randomIndex, 1);
+      }
+
+      let line = 10;
+      const { htmlToText } = require("html-to-text");
+      randomizedQuestions.forEach((question) => {
+        let text = htmlToText(question.text, {
+          wordwrap: 130,
+        });
+        const textArray = text.split("\n");
+        textArray.forEach((newLine) => {
+          doc.text(newLine, 10, line);
+          line += 3;
+        });
+        if (line < 260) {
+          line += 6;
+        } else {
+          doc.addPage();
+          line = 10;
+        }
+      });
+      doc.save(`${Date.now()}.pdf`);
     },
   },
   async created() {
