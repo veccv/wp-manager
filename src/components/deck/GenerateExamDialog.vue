@@ -3,6 +3,7 @@
     <v-card>
       <v-toolbar color="black" title="Opcje generowania"></v-toolbar>
       <v-card-text>
+        <GenerateExamForm @set-questions="newQuestions" :questions="questions"/>
       </v-card-text>
       <v-card-actions class="justify-end">
         <v-btn variant="text" @click="generateTest">Pobierz</v-btn>
@@ -15,24 +16,36 @@
 <script>
 import {jsPDF} from "jspdf";
 import font from "@/assets/FreeSerif-normal";
+import GenerateExamForm from "@/components/deck/GenerateExamForm.vue";
 
 export default {
   name: "GenerateExamDialog",
+  components: {GenerateExamForm},
   props: {
     activeDialog: {type: Boolean, required: true},
     questions: Array,
   },
   computed: {
     show: {
-      get () {
+      get() {
         return this.activeDialog
       },
-      set () {
+      set() {
         this.$emit('generate-dialog')
       }
-    }
+    },
+  },
+  data() {
+    return {
+      options: {
+        amountOfQuestions: 0,
+      },
+    };
   },
   methods: {
+    newQuestions(questionsAmount) {
+      this.options.amountOfQuestions = questionsAmount;
+    },
     generateTest() {
       const doc = new jsPDF();
 
@@ -44,7 +57,7 @@ export default {
       let questionsToRandom = [...this.questions];
       let randomizedQuestions = [];
       while (questionsToRandom.length !== 0) {
-        if (randomizedQuestions.length === 5) {
+        if (randomizedQuestions.length >= this.options.amountOfQuestions) {
           break;
         }
         let randomIndex = Math.floor(Math.random() * questionsToRandom.length);
