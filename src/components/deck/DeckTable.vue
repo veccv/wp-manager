@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import RemoveQuestion from "@/components/RemoveQuestion.vue";
+import RemoveQuestion from "@/components/deck/RemoveQuestion.vue";
 
 export default {
   name: "DeckTable",

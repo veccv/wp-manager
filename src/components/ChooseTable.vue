@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import RemoveDeck from "@/components/RemoveDeck.vue";
+import RemoveDeck from "@/components/deck/RemoveDeck.vue";
 
 export default {
   name: "ChooseTable",

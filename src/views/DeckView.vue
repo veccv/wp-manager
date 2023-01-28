@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import DeckTable from "@/components/DeckTable.vue";
-import NewQuestionForm from "@/components/NewQuestionForm.vue";
-import GenerateExam from "@/components/GenerateExam.vue";
-import GenerateExamDialog from "@/components/GenerateExamDialog.vue";
+import DeckTable from "@/components/deck/DeckTable.vue";
+import NewQuestionForm from "@/components/deck/NewQuestionForm.vue";
+import GenerateExam from "@/components/deck/GenerateExam.vue";
+import GenerateExamDialog from "@/components/deck/GenerateExamDialog.vue";
 
 export default {
   name: "DeckView",

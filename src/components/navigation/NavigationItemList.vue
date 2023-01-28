@@ -26,7 +26,7 @@
 <script>
 import NavigationItem from "@/components/navigation/NavigationItem.vue";
 import { mdiAccount } from "@mdi/js";
-import NewDeckForm from "@/components/NewDeckForm.vue";
+import NewDeckForm from "@/components/deck/NewDeckForm.vue";
 
 export default {
   name: "NavigationItemList",
