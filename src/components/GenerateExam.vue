@@ -1,16 +1,10 @@
 <template>
-  <v-btn> Generuj test </v-btn>
+  <v-btn @click="$emit('generate-dialog')">Generuj test</v-btn>
 </template>
 
 <script>
 export default {
   name: "GenerateExam",
-  props: {
-    questions: Array,
-  },
-  methods: {
-
-  }
 };
 </script>
 
